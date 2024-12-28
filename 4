@@ -1,0 +1,23 @@
+#include <iostream>
+
+int main() {
+    long long n;
+    std::cin >> n;
+
+    long long period = 60;
+    long long remainder = n % period;
+
+    long long sum_last_digit = 0;
+    long long fib1 = 0, fib2 = 1;
+
+    for (long long i = 0; i <= remainder; ++i) {
+        sum_last_digit = (sum_last_digit + fib1) % 10;
+        long long temp = (fib1 + fib2) % 10;
+        fib1 = fib2;
+        fib2 = temp;
+    }
+
+    std::cout << sum_last_digit << std::endl;
+
+    return 0;
+}
