@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+#include <map>
+
+int get_pisano_period(int m) {
+    int a = 0, b = 1, c;
+    for (int i = 0; i < m * m; ++i) {
+        c = (a + b) % m;
+        a = b;
+        b = c;
+        if (a == 0 && b == 1)
+            return i + 1;
+    }
+    return -1;
+}
+
+int fibonacci_modulo(long long n, int m) {
+    if (n <= 1) {
+        return n;
+    }
+    
+    int pisano_period = get_pisano_period(m);
+    n = n % pisano_period;
+    
+     if (n <= 1) {
+        return n;
+    }
+
+    int prev = 0;
+    int curr = 1;
+
+    for (int i = 2; i <= n; ++i) {
+        int next = (prev + curr) % m;
+        prev = curr;
+        curr = next;
+    }
+    return curr;
+}
+
+int main() {
+    long long n;
+    int m;
+    std::cin >> n >> m;
+    std::cout << fibonacci_modulo(n, m) << "\n";
+}
