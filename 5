@@ -1,0 +1,41 @@
+#include <iostream>
+
+int main() {
+    long long m, n;
+    std::cin >> m >> n;
+
+    long long period = 60;
+    long long sum_n_last_digit = 0;
+    long long sum_m_minus_1_last_digit = 0;
+
+
+    long long rem_n = n % period;
+    long long fib1 = 0, fib2 = 1;
+
+    for (long long i = 0; i <= rem_n; ++i) {
+        sum_n_last_digit = (sum_n_last_digit + fib1) % 10;
+        long long temp = (fib1 + fib2) % 10;
+        fib1 = fib2;
+        fib2 = temp;
+    }
+
+
+    if (m > 0) {
+    long long rem_m_minus_1 = (m - 1) % period;
+    fib1 = 0;
+    fib2 = 1;
+        for (long long i = 0; i <= rem_m_minus_1; ++i) {
+           sum_m_minus_1_last_digit = (sum_m_minus_1_last_digit + fib1) % 10;
+           long long temp = (fib1 + fib2) % 10;
+           fib1 = fib2;
+           fib2 = temp;
+        }
+    }
+
+
+    long long result = (sum_n_last_digit - sum_m_minus_1_last_digit + 10) % 10;
+
+    std::cout << result << std::endl;
+
+    return 0;
+}
